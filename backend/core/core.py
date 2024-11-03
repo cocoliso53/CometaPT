@@ -1,4 +1,4 @@
-from backend.db import db
+from db import db
 
 # constant to keep track of tax rate, better placed ina different layer?? 
 TAX_RATE = 0.16

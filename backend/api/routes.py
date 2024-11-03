@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
-from backend.core import core
-from backend.db import db
+from core import core
+from db import db
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -29,7 +29,7 @@ class OrderSummary(BaseModel):
 app = FastAPI(title="APP")
 
 ### We only allow the frontend to make calls
-FRONTEND_URL = "http://frontend:3000"
+FRONTEND_URL = "http://localhost:3000"
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[FRONTEND_URL],
