@@ -1,5 +1,3 @@
-from datetime import datetime
-from functools import reduce
 from backend.db import db
 
 # constant to keep track of tax rate, better placed ina different layer?? 

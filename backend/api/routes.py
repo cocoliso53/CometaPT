@@ -4,6 +4,7 @@ from typing import List, Optional
 from backend.core import core
 from backend.db import db
 from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 
 # Models
 class OrderItem(BaseModel):
@@ -26,6 +27,16 @@ class OrderSummary(BaseModel):
     total: float
 
 app = FastAPI(title="APP")
+
+### We only allow the frontend to make calls
+FRONTEND_URL = "http://frontend:3000"
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[FRONTEND_URL],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 ### Stock
 ### We could add some other functions like update stock 
