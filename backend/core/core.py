@@ -73,6 +73,7 @@ def apply_discount(order_id, discount_amount):
     order["discounts"] = discount_amount
     return True, "Discount applied successfully"
 
+# Check if this is necesary
 def get_order_total(order_id):
     order = db.get_order_by_id(order_id)
     if not order:
@@ -94,8 +95,6 @@ def pay_order(order_id):
     
     return False, "Failed to update order status", 0
 
-
-### TBD if we keep this one
 def get_order_details(order_id):
     """
     Get detailed order information including all calculations
@@ -103,28 +102,12 @@ def get_order_details(order_id):
     order = db.get_order_by_id(order_id)
     if not order:
         return None
-    
-    # Create a summary of beers ordered
-    beer_summary = {}
-    for round in order["rounds"]:
-        for item in round["items"]:
-            beer = db.get_beer_by_name_in_stock(item["name"])
-            if beer:
-                if item["name"] not in beer_summary:
-                    beer_summary[item["name"]] = {
-                        "quantity": 0,
-                        "price_per_unit": beer["price"],
-                        "total": 0
-                    }
-                beer_summary[item["name"]]["quantity"] += item["quantity"]
-                beer_summary[item["name"]]["total"] += beer["price"] * item["quantity"]
 
     return {
         "id": order["id"],
         "created": order["created"],
         "paid": order["paid"],
         "rounds": order["rounds"],
-        "beer_summary": beer_summary,
         "subtotal": order["subtotal"],
         "taxes": order["taxes"],
         "discounts": order["discounts"],

@@ -92,7 +92,6 @@ def test_get_order_details(reset_store):
     details = core.get_order_details(order["id"])
     
     assert details is not None
-    assert "beer_summary" in details
-    assert "Corona" in details["beer_summary"]
-    assert details["beer_summary"]["Corona"]["quantity"] == 2
-    assert details["beer_summary"]["Corona"]["total"] == 230
+    assert details["id"] == 1
+    assert details["total"] == 266.8
+    assert round(details["taxes"]) == 37
